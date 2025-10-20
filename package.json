@@ -1,0 +1,17 @@
+{
+  "name": "produtos-fornecedores-api",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "install-all": "npm install --prefix backend && npm install --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0"
+  },
+  "scripts": {
+  "dev": "nodemon src/server.js",
+  "start": "node src/server.js"
+}
+
+}

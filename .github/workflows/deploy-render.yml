@@ -1,0 +1,14 @@
+name: Deploy to Render
+on:
+  push:
+    branches: [ main ]
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger backend deploy (Render)
+        if: ${{ secrets.RENDER_BACKEND_DEPLOY_HOOK != '' }}
+        run: curl -fsSL -X POST "${{ secrets.RENDER_BACKEND_DEPLOY_HOOK }}"
+      - name: Trigger frontend deploy (Render)
+        if: ${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK != '' }}
+        run: curl -fsSL -X POST "${{ secrets.RENDER_FRONTEND_DEPLOY_HOOK }}"
