@@ -1,17 +1,24 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import path from 'path';
 
-// ⚙️ Configuração para o Vite aceitar conexões do backend no Replit
+// 🔧 Configuração para funcionar no Replit
 export default defineConfig({
   plugins: [react()],
+  root: './',
   server: {
+    host: true,
     port: 5173,
-    open: true,
-    allowedHosts: [
-      'localhost',
-      '127.0.0.1',
-      // ⬇️ Cole aqui o domínio do backend Replit (sem https://)
-      '47d56afe-52b7-47be-9395-1cfd24b5c6ab-00-o0rjk7qcsia8.picard.replit.dev'
-    ]
+    allowedHosts: ['*'], // 🔥 evita erro "Blocked request"
+    proxy: {
+      '/api': {
+        target: 'http://localhost:5001',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
+  },
+  build: {
+    outDir: path.resolve(__dirname, 'dist')
   }
-})
+});
