@@ -1,5 +1,5 @@
 services:
-  # Backend Node.js
+  # BACKEND - Node.js (API)
   - type: web
     name: produtos-fornecedores-backend
     env: docker
@@ -11,11 +11,10 @@ services:
       - key: SQLITE_STORAGE
         value: ./data/database.sqlite
 
-  # Frontend React (Vite)
+  # FRONTEND - React (Vite)
   - type: web
     name: produtos-fornecedores-frontend
     env: static
-    plan: free
     buildCommand: npm install && npm run build
     staticPublishPath: dist
     rootDir: frontend
